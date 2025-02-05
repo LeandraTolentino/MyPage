@@ -3,19 +3,70 @@
 <head>
     <title>Inflation Calculator</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; }
-        input, button { padding: 8px; margin: 5px; }
-        .result { margin-top: 20px; font-weight: bold; }
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px;
+            margin: 0;
+        }
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .calculator-container {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .image-container {
+            text-align: center;
+        }
+        .text-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+        }
+        input, button { 
+            padding: 8px; 
+            margin: 5px;
+            width: 200px;
+        }
+        .result { 
+            margin-top: 20px; 
+            font-weight: bold;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ELO Inflation Calculator</h1>
-        <p>Enter years in the format <strong>YYYY-YYYY</strong> (e.g., 2000-2020):</p>
-        <input type="text" id="yearsInput" placeholder="1975-2025">
-        <button onclick="calculateInflation()">Calculate</button>
-        <div id="result" class="result"></div>
+    <div class="main-container">
+        <!-- Left Column - Calculator -->
+        <div class="calculator-container">
+            <h1>ELO Inflation Calculator</h1>
+            <p>Enter years in the format <strong>YYYY-YYYY</strong> (e.g., 2000-2020):</p>
+            <input type="text" id="yearsInput" placeholder="1975-2025">
+            <button onclick="calculateInflation()">Calculate</button>
+            <div id="result" class="result"></div>
+        </div>
+
+        <!-- Right Column - Image and Text -->
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/LeandraTolentino/DataProjects/main/ELO_AND_AGE_ANALYSIS/GraphsinPNG/ELO_Inflation.png" 
+                 alt="ELO Inflation Graph">
+            <div class="text-box">
+                <h3>Analysis</h3>
+                <p>PLACEHOLDER TEXT - Analysis.</p>
+            </div>
+        </div>
     </div>
 
     <script>
