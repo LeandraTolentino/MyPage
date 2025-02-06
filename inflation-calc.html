@@ -4,11 +4,11 @@
     <title>Inflation Calculator</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        #inflationChart {
-        width: 100%;
-        max-width: 600px;
-        height: 400px;
-        margin: auto;
+        #inflationChart, #eloChart {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin: auto;
         }
         body { 
             font-family: Arial, sans-serif; 
@@ -82,8 +82,7 @@
 
     <div class="bottom-section">
         <div class="image-container">
-            <img src="https://raw.githubusercontent.com/LeandraTolentino/DataProjects/main/ELO_AND_AGE_ANALYSIS/GraphsinPNG/ELOoveryears.png" 
-                 alt="ELO Over Years Graph">
+            <canvas id="eloChart"></canvas>
             <div class="text-box">
                 <h3>Further Analysis</h3>
                 <p>Above is a yearly line graph of the average ELO Ratings for top rated players over the years. There is considerable stagnation during the 1980s, and even noticeable deflation since 2017. This deflation is currently being tackled by FIDE who is introducing new rating floors and using other methods to combat the issue.</p>
@@ -146,6 +145,13 @@
             2025: 2722.46
         };
 
+        // Inflation data
+        const inflationRates = [
+            -0.27,0.14,0.05,0.03,0.07,-0.10,0.10,-0.17,0.07,-0.02,0.17,0.16,0.45,0.25,0.19,0.43,0.22,0.49,0.00,0.35,0.24,
+            0.11,0.25,0.21,0.16,0.28,0.02,0.07,0.13,0.06,0.21,0.09,0.42,0.33,0.12,0.23,0.14,0.12,0.06,0.04,-0.01,0.06,-0.01,
+            -0.11,-0.09,-0.02,-0.12,-0.04,-0.08,-0.11
+        ];
+
         // Calculate inflation and display results
         function calculateInflation() {
             const input = document.getElementById("yearsInput").value;
@@ -180,48 +186,75 @@
             resultDiv.innerHTML = `Inflation from ${year1} to ${year2}: <span style="color: blue;">${inflation.toFixed(2)}%</span>`;
         }
     </script>
-
     
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const ctx = document.getElementById('inflationChart').getContext('2d');
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctxInflation = document.getElementById('inflationChart').getContext('2d');
+            const yearsInflation = Array.from({length: 50}, (_, i) => 1976 + i); // Generate years from 1976 to 2025
+            const inflationData = inflationRates;
 
-        const years = Array.from({length: 50}, (_, i) => 1976 + i); // Generate years 1976-2025
-        const inflationRates = [
-            -0.27,0.14,0.05,0.03,0.07,-0.10,0.10,-0.17,0.07,-0.02,0.17,0.16,0.45,0.25,0.19,0.43,0.22,0.49,0.00,0.35,0.24,
-            0.11,0.25,0.21,0.16,0.28,0.02,0.07,0.13,0.06,0.21,0.09,0.42,0.33,0.12,0.23,0.14,0.12,0.06,0.04,-0.01,0.06,-0.01,
-            -0.11,-0.09,-0.02,-0.12,-0.04,-0.08,-0.11
-        ];
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: years,
-                datasets: [{
-                    label: 'ELO Inflation (%)',
-                    data: inflationRates,
-                    borderColor: 'blue',
-                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
-                    borderWidth: 2,
-                    pointRadius: 3,
-                    fill: true,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                responsive: false,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { title: { display: true, text: 'Year' } },
-                    y: { title: { display: true, text: 'Inflation (%)' } }
+            new Chart(ctxInflation, {
+                type: 'line',
+                data: {
+                    labels: yearsInflation,
+                    datasets: [{
+                        label: 'Inflation (%)',
+                        data: inflationData,
+                        borderColor: 'red',
+                        backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        fill: true,
+                        tension: 0.3
+                    }]
                 },
-                plugins: {
-                    tooltip: { enabled: true },
-                    legend: { display: true }
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Year' } },
+                        y: { title: { display: true, text: 'Inflation (%)' } }
+                    },
+                    plugins: {
+                        tooltip: { enabled: true },
+                        legend: { display: true }
+                    }
                 }
-            }
+            });
+
+            const ctxElo = document.getElementById('eloChart').getContext('2d');
+            const years = Object.keys(eloRatings);
+            const eloData = Object.values(eloRatings);
+
+            new Chart(ctxElo, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Average ELO',
+                        data: eloData,
+                        borderColor: 'blue',
+                        backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Year' } },
+                        y: { title: { display: true, text: 'Average ELO' } }
+                    },
+                    plugins: {
+                        tooltip: { enabled: true },
+                        legend: { display: true }
+                    }
+                }
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>
