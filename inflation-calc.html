@@ -59,48 +59,6 @@
     </style>
 </head>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const ctx = document.getElementById('inflationChart').getContext('2d');
-
-        const years = Array.from({length: 50}, (_, i) => 1976 + i); // Generate years 1976-2025
-        const inflationRates = [
-            -0.27,0.14,0.05,0.03,0.07,-0.10,0.10,-0.17,0.07,-0.02,0.17,0.16,0.45,0.25,0.19,0.43,0.22,0.49,0.00,0.35,0.24,
-            0.11,0.25,0.21,0.16,0.28,0.02,0.07,0.13,0.06,0.21,0.09,0.42,0.33,0.12,0.23,0.14,0.12,0.06,0.04,-0.01,0.06,-0.01,
-            -0.11,-0.09,-0.02,-0.12,-0.04,-0.08,-0.11
-        ];
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: years,
-                datasets: [{
-                    label: 'ELO Inflation (%)',
-                    data: inflationRates,
-                    borderColor: 'blue',
-                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
-                    borderWidth: 2,
-                    pointRadius: 3,
-                    fill: true,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { title: { display: true, text: 'Year' } },
-                    y: { title: { display: true, text: 'Inflation (%)' } }
-                },
-                plugins: {
-                    tooltip: { enabled: true },
-                    legend: { display: true }
-                }
-            }
-        });
-    });
-</script>
-
 <body>
     <div class="main-container">
         <!-- Left Column - Calculator -->
@@ -222,5 +180,48 @@
             resultDiv.innerHTML = `Inflation from ${year1} to ${year2}: <span style="color: blue;">${inflation.toFixed(2)}%</span>`;
         }
     </script>
+
+    
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById('inflationChart').getContext('2d');
+
+        const years = Array.from({length: 50}, (_, i) => 1976 + i); // Generate years 1976-2025
+        const inflationRates = [
+            -0.27,0.14,0.05,0.03,0.07,-0.10,0.10,-0.17,0.07,-0.02,0.17,0.16,0.45,0.25,0.19,0.43,0.22,0.49,0.00,0.35,0.24,
+            0.11,0.25,0.21,0.16,0.28,0.02,0.07,0.13,0.06,0.21,0.09,0.42,0.33,0.12,0.23,0.14,0.12,0.06,0.04,-0.01,0.06,-0.01,
+            -0.11,-0.09,-0.02,-0.12,-0.04,-0.08,-0.11
+        ];
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'ELO Inflation (%)',
+                    data: inflationRates,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { title: { display: true, text: 'Year' } },
+                    y: { title: { display: true, text: 'Inflation (%)' } }
+                },
+                plugins: {
+                    tooltip: { enabled: true },
+                    legend: { display: true }
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
