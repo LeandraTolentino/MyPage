@@ -54,12 +54,25 @@
         ul li {
             margin-bottom: 10px;
         }
-        .links a {
-            display: inline-block;
-            margin-right: 10px;
-            color: #0073e6;
-            text-decoration: none;
-        }
+/* make sure to delete the pipes | in the html */
+
+.links {
+    display: flex;
+    flex-direction: row; /* technically not needed but helps make it more explicit */
+    justify-content: center;
+}
+
+.links a {
+    border-left: 2px solid black; /* configure me */
+    border-right: 2px solid black; /* you could also use a css variable for this + the padding but combined property syntax is better iguess. i just always forget how you are meant to do it (is it LTRB?) */
+    margin: 0; /* overrides one of your styles so you can remove this if you merge it in */
+    padding-left: 10px; /* configure me */
+    padding-right: 10px;
+}
+
+.links :is(:first-child, :last-child) {
+    border: none;
+}
     </style>
 </head>
 <body>
