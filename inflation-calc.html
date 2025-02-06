@@ -68,6 +68,9 @@
             <input type="text" id="yearsInput" placeholder="1975-2025">
             <button onclick="calculateInflation()">Calculate</button>
             <div id="result" class="result"></div>
+                <div class="image-container">
+                    <canvas id="eloChart"></canvas>
+                </div>
         </div>
 
         <!-- Right Column - Image and Text -->
@@ -81,13 +84,10 @@
     </div>
 
     <div class="bottom-section">
-        <div class="image-container">
-            <canvas id="eloChart"></canvas>
             <div class="text-box">
                 <h3>Further Analysis</h3>
                 <p>Above is a yearly line graph of the average ELO Ratings for top rated players over the years. There is considerable stagnation during the 1980s, and even noticeable deflation since 2017. This deflation is currently being tackled by FIDE who is introducing new rating floors and using other methods to combat the issue.</p>
             </div>
-        </div>
     </div>
 
     <script>
