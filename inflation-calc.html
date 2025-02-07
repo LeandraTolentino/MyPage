@@ -102,6 +102,9 @@
                 <div class="elo-average-container">
                     <canvas id="eloAverageChart"></canvas>
                 </div>
+                <p>A general study of the ELO of FIDE rated chess players shows that the average ELO has fallen over ten years.</p>
+                <p>There are numerous possible reasons for that, so it does not make sense to jump to conclusions about average player strength changing.</p>
+                <p>One hypothesis for why is simply that there is a lower barrier of entry to be FIDE-Rated nowadays, i.e. there are more tournaments nowadays that weaker players can join and get a FIDE rating from.</p>
                 <p>Available at: <a href="https://github.com/LeandraTolentino/DataProjects/tree/main/ELO_AND_AGE_ANALYSIS">Github Repo</a></p>
             </div>
     </div>
@@ -339,7 +342,7 @@
             data: {
                 labels: yearsEloAvg,
                 datasets: [{
-                    label: 'Average ELO (Top 50)',
+                    label: 'Average ELO (Annual Sample Size 10% = 3000 sampled each year)',
                     data: eloAvgValues,
                     borderColor: 'blue',
                     backgroundColor: 'rgba(0, 0, 255, 0.1)',
