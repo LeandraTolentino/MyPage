@@ -7,8 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         canvas {
-            max-width: 600px; /* Prevents oversized charts */
-            max-height: 400px;
+            max-width: 900px; /* Increase chart width */
+            max-height: 500px; /* Adjust height */
+            width: 900px; 
+            height: 500px;
             margin: 20px auto;
             display: block;
         }
@@ -59,9 +61,11 @@
                         x: {
                             ticks: {
                                 font: { size: 10 },
-                                maxRotation: 45, // Tilt labels to fit better
+                                maxRotation: 45,
                                 minRotation: 30
-                            }
+                            },
+                            barPercentage: 0.8, // Makes bars thicker
+                            categoryPercentage: 0.9 // Reduces spacing
                         },
                         y: {
                             beginAtZero: true,
@@ -69,7 +73,7 @@
                         }
                     },
                     plugins: {
-                        legend: { display: false } // Hide legend to save space
+                        legend: { display: false }
                     }
                 }
             });
