@@ -7,8 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         canvas {
-            max-width: 100%;
+            max-width: 600px; /* Prevents oversized charts */
+            max-height: 400px;
             margin: 20px auto;
+            display: block;
         }
     </style>
 </head>
@@ -54,8 +56,20 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        x: { ticks: { autoSkip: false } },
-                        y: { beginAtZero: true }
+                        x: {
+                            ticks: {
+                                font: { size: 10 },
+                                maxRotation: 45, // Tilt labels to fit better
+                                minRotation: 30
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { font: { size: 12 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false } // Hide legend to save space
                     }
                 }
             });
