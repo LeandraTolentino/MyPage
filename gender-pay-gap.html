@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Median Pay Gap by Industry</title>
+    <title>Pay Gap by Industry</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         canvas {
-            max-width: 900px; /* Increase chart width */
-            max-height: 500px; /* Adjust height */
-            width: 900px; 
+            max-width: 900px;
+            max-height: 500px;
+            width: 900px;
             height: 500px;
             margin: 20px auto;
             display: block;
@@ -17,40 +17,79 @@
     </style>
 </head>
 <body>
-    <h2>Median Pay Gap by Industry (2022)</h2>
-    <canvas id="chart2022"></canvas>
-    <h2>Median Pay Gap by Industry (2023)</h2>
-    <canvas id="chart2023"></canvas>
-    <h2>Median Pay Gap by Industry (2024)</h2>
-    <canvas id="chart2024"></canvas>
+    <h1>Median Pay Gap by Industry</h1>
+    <h2>2022</h2>
+    <canvas id="chartMedian2022"></canvas>
+    <h2>2023</h2>
+    <canvas id="chartMedian2023"></canvas>
+    <h2>2024</h2>
+    <canvas id="chartMedian2024"></canvas>
+
+    <h1>Mean Pay Gap by Industry</h1>
+    <h2>2022</h2>
+    <canvas id="chartMean2022"></canvas>
+    <h2>2023</h2>
+    <canvas id="chartMean2023"></canvas>
+    <h2>2024</h2>
+    <canvas id="chartMean2024"></canvas>
 
     <script>
-        const data = {
+        const payGapData = {
             "2022": {
-                labels: ["Accommodation and Food Service Activities", "Administrative and Support Service Activities", "Agriculture Forestry and Fishing", "Arts Sports and Recreation", "Construction", "Education", "Electricity Gas Steam and Air Conditioning Supply", "Financial and Insurance Activities", "Human Health and Social Work Activities", "Manufacturing", "Mining and Quarrying", "Other Service Activities", "Professional Scientific and Technical Activities", "Public Administration and Defence Compulsory Social Security", "Publishing Broadcasting and Content Production and Distribution Activites", "Real Estate Activites", "Telecommunication Computer Programming Consulting Computing Infrastructure and Other Information Service Activities", "Transportation and Storage", "Water Supply Sewerage Waste Management and Remediation Activities", "Wholesale and Retail Trade"],
-                values: [3.22, 10.18, 4.29, 2.94, 23.47, 10.65, 9.71, 15.29, 1.85, 10.41, 23.00, 14.10, 13.30, 1.05, 13.58, 21.47, 13.28, 1.25, 6.96, 3.14]
+                labels: [
+                    "Accommodation and Food Service Activities", "Administrative and Support Service Activities", 
+                    "Agriculture Forestry and Fishing", "Arts Sports and Recreation", "Construction", 
+                    "Education", "Electricity Gas Steam and Air Conditioning Supply", "Financial and Insurance Activities", 
+                    "Human Health and Social Work Activities", "Manufacturing", "Mining and Quarrying", 
+                    "Other Service Activities", "Professional Scientific and Technical Activities", 
+                    "Public Administration and Defence", "Publishing Broadcasting and Content Production", 
+                    "Real Estate Activities", "Telecom & IT Services", "Transportation and Storage", 
+                    "Water Supply & Waste Management", "Wholesale and Retail Trade"
+                ],
+                median: [3.22, 10.18, 4.29, 2.94, 23.47, 10.65, 9.71, 15.29, 1.85, 10.41, 23.00, 14.10, 13.30, 1.05, 13.58, 21.47, 13.28, 1.25, 6.96, 3.14],
+                mean: [8.92, 13.68, 2.64, 9.10, 22.66, 9.48, 9.71, 20.68, 8.71, 12.27, 20.00, 6.07, 18.21, 4.93, 12.09, 30.83, 11.91, 9.18, 7.67, 10.11]
             },
             "2023": {
-                labels: ["Accommodation and Food Service Activities", "Administrative and Support Service Activities", "Agriculture Forestry and Fishing", "Arts Sports and Recreation", "Construction", "Education", "Electricity Gas Steam and Air Conditioning Supply", "Financial and Insurance Activities", "Human Health and Social Work Activities", "Manufacturing", "Mining and Quarrying", "Other Service Activities", "Professional Scientific and Technical Activities", "Public Administration and Defence Compulsory Social Security", "Publishing Broadcasting and Content Production and Distribution Activites", "Real Estate Activites", "Telecommunication Computer Programming Consulting Computing Infrastructure and Other Information Service Activities", "Transportation and Storage", "Water Supply Sewerage Waste Management and Remediation Activities", "Wholesale and Retail Trade"],
-                values: [3.07, 8.03, 0.73, 2.45, 22.24, 10.29, 8.65, 14.64, 0.52, 9.02, 23.00, 13.40, 14.31, -1.67, 11.00, 21.53, 12.26, 6.27, 14.32, 5.23]
+                labels: [
+                    "Accommodation and Food Service Activities", "Administrative and Support Service Activities", 
+                    "Agriculture Forestry and Fishing", "Arts Sports and Recreation", "Construction", 
+                    "Education", "Electricity Gas Steam and Air Conditioning Supply", "Financial and Insurance Activities", 
+                    "Human Health and Social Work Activities", "Manufacturing", "Mining and Quarrying", 
+                    "Other Service Activities", "Professional Scientific and Technical Activities", 
+                    "Public Administration and Defence", "Publishing Broadcasting and Content Production", 
+                    "Real Estate Activities", "Telecom & IT Services", "Transportation and Storage", 
+                    "Water Supply & Waste Management", "Wholesale and Retail Trade"
+                ],
+                median: [3.07, 8.03, 0.73, 2.45, 22.24, 10.29, 8.65, 14.64, 0.52, 9.02, 23.00, 13.40, 14.31, -1.67, 11.00, 21.53, 12.26, 6.27, 14.32, 5.23],
+                mean: [8.63, 13.37, 2.78, 7.90, 22.35, 9.09, 11.08, 19.15, 8.02, 10.97, 18.00, 5.90, 20.69, 3.09, 8.65, 28.63, 11.79, 11.50, 16.94, 9.60]
             },
             "2024": {
-                labels: ["Accommodation and Food Service Activities", "Administrative and Support Service Activities", "Agriculture Forestry and Fishing", "Arts Sports and Recreation", "Construction", "Education", "Electricity Gas Steam and Air Conditioning Supply", "Financial and Insurance Activities", "Human Health and Social Work Activities", "Manufacturing", "Mining and Quarrying", "Other Service Activities", "Professional Scientific and Technical Activities", "Public Administration and Defence Compulsory Social Security", "Publishing Broadcasting and Content Production and Distribution Activites", "Real Estate Activites", "Telecommunication Computer Programming Consulting Computing Infrastructure and Other Information Service Activities", "Transportation and Storage", "Water Supply Sewerage Waste Management and Remediation Activities", "Wholesale and Retail Trade"],
-                values: [2.67, 8.57, 1.45, 4.77, 19.42, 10.72, 8.87, 14.56, 0.15, 9.90, 21.43, 9.34, 12.23, -0.44, 9.40, 19.13, 13.10, 10.65, 8.62, 5.66]
+                labels: [
+                    "Accommodation and Food Service Activities", "Administrative and Support Service Activities", 
+                    "Agriculture Forestry and Fishing", "Arts Sports and Recreation", "Construction", 
+                    "Education", "Electricity Gas Steam and Air Conditioning Supply", "Financial and Insurance Activities", 
+                    "Human Health and Social Work Activities", "Manufacturing", "Mining and Quarrying", 
+                    "Other Service Activities", "Professional Scientific and Technical Activities", 
+                    "Public Administration and Defence", "Publishing Broadcasting and Content Production", 
+                    "Real Estate Activities", "Telecom & IT Services", "Transportation and Storage", 
+                    "Water Supply & Waste Management", "Wholesale and Retail Trade"
+                ],
+                median: [2.67, 8.57, 1.45, 4.77, 19.42, 10.72, 8.87, 14.56, 0.15, 9.90, 21.43, 9.34, 12.23, -0.44, 9.40, 19.13, 13.10, 10.65, 8.62, 5.66],
+                mean: [9.23, 12.93, 2.53, 6.94, 20.59, 8.26, 7.26, 18.53, 6.60, 10.79, 42.63, 10.89, 18.17, 4.45, 7.64, 23.50, 11.24, 12.46, 10.36, 9.98]
             }
         };
 
-        function createChart(year, chartId) {
+        function createChart(year, chartId, dataType) {
             const ctx = document.getElementById(chartId).getContext('2d');
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: data[year].labels,
+                    labels: payGapData[year].labels,
                     datasets: [{
-                        label: `Median Pay Gap (%)`,
-                        data: data[year].values,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
+                        label: `${dataType === 'median' ? 'Median' : 'Mean'} Pay Gap (%)`,
+                        data: payGapData[year][dataType],
+                        backgroundColor: dataType === 'median' ? 'rgba(75, 192, 192, 0.6)' : 'rgba(255, 99, 132, 0.6)',
+                        borderColor: dataType === 'median' ? 'rgba(75, 192, 192, 1)' : 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -58,19 +97,12 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        x: {
-                            ticks: {
-                                font: { size: 10 },
-                                maxRotation: 45,
-                                minRotation: 30
-                            },
-                            barPercentage: 0.8, // Makes bars thicker
-                            categoryPercentage: 0.9 // Reduces spacing
+                        x: { 
+                            ticks: { font: { size: 10 }, maxRotation: 45, minRotation: 30 }, 
+                            barPercentage: 0.8, 
+                            categoryPercentage: 0.9 
                         },
-                        y: {
-                            beginAtZero: true,
-                            ticks: { font: { size: 12 } }
-                        }
+                        y: { beginAtZero: true, ticks: { font: { size: 12 } } }
                     },
                     plugins: {
                         legend: { display: false }
@@ -79,9 +111,10 @@
             });
         }
 
-        createChart("2022", "chart2022");
-        createChart("2023", "chart2023");
-        createChart("2024", "chart2024");
+        ["2022", "2023", "2024"].forEach(year => {
+            createChart(year, `chartMedian${year}`, "median");
+            createChart(year, `chartMean${year}`, "mean");
+        });
     </script>
 </body>
 </html>
