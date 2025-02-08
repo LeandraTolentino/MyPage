@@ -14,9 +14,25 @@
             margin: 20px auto;
             display: block;
         }
+        .disclaimer {
+            font-size: 14px;
+            color: red;
+            font-weight: bold;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid red;
+            background-color: #ffe6e6;
+        }
     </style>
 </head>
 <body>
+    <div class="disclaimer">
+        DISCLAIMER: The data below is based off of only publicly disclosed data by large-scale employers using an unweighted mean, 
+        that is all employers are treated equally despite number of employees, market share, etc. This is because the only data available 
+        is that each firm has at least 250 employees. In the future, more study will perhaps be done to obtain weights for each firm based off of 
+        limited headcount data, but not currently. This data should therefore be understood as suffering from these limitations.
+    </div>
+
     <h1>Median Pay Gap by Industry</h1>
     <h2>2022</h2>
     <canvas id="chartMedian2022"></canvas>
@@ -34,50 +50,7 @@
     <canvas id="chartMean2024"></canvas>
 
     <script>
-        const payGapData = {
-            "2022": {
-                labels: [
-                    "Accommodation and Food Service Activities", "Administrative and Support Service Activities", 
-                    "Agriculture Forestry and Fishing", "Arts Sports and Recreation", "Construction", 
-                    "Education", "Electricity Gas Steam and Air Conditioning Supply", "Financial and Insurance Activities", 
-                    "Human Health and Social Work Activities", "Manufacturing", "Mining and Quarrying", 
-                    "Other Service Activities", "Professional Scientific and Technical Activities", 
-                    "Public Administration and Defence", "Publishing Broadcasting and Content Production", 
-                    "Real Estate Activities", "Telecom & IT Services", "Transportation and Storage", 
-                    "Water Supply & Waste Management", "Wholesale and Retail Trade"
-                ],
-                median: [3.22, 10.18, 4.29, 2.94, 23.47, 10.65, 9.71, 15.29, 1.85, 10.41, 23.00, 14.10, 13.30, 1.05, 13.58, 21.47, 13.28, 1.25, 6.96, 3.14],
-                mean: [8.92, 13.68, 2.64, 9.10, 22.66, 9.48, 9.71, 20.68, 8.71, 12.27, 20.00, 6.07, 18.21, 4.93, 12.09, 30.83, 11.91, 9.18, 7.67, 10.11]
-            },
-            "2023": {
-                labels: [
-                    "Accommodation and Food Service Activities", "Administrative and Support Service Activities", 
-                    "Agriculture Forestry and Fishing", "Arts Sports and Recreation", "Construction", 
-                    "Education", "Electricity Gas Steam and Air Conditioning Supply", "Financial and Insurance Activities", 
-                    "Human Health and Social Work Activities", "Manufacturing", "Mining and Quarrying", 
-                    "Other Service Activities", "Professional Scientific and Technical Activities", 
-                    "Public Administration and Defence", "Publishing Broadcasting and Content Production", 
-                    "Real Estate Activities", "Telecom & IT Services", "Transportation and Storage", 
-                    "Water Supply & Waste Management", "Wholesale and Retail Trade"
-                ],
-                median: [3.07, 8.03, 0.73, 2.45, 22.24, 10.29, 8.65, 14.64, 0.52, 9.02, 23.00, 13.40, 14.31, -1.67, 11.00, 21.53, 12.26, 6.27, 14.32, 5.23],
-                mean: [8.63, 13.37, 2.78, 7.90, 22.35, 9.09, 11.08, 19.15, 8.02, 10.97, 18.00, 5.90, 20.69, 3.09, 8.65, 28.63, 11.79, 11.50, 16.94, 9.60]
-            },
-            "2024": {
-                labels: [
-                    "Accommodation and Food Service Activities", "Administrative and Support Service Activities", 
-                    "Agriculture Forestry and Fishing", "Arts Sports and Recreation", "Construction", 
-                    "Education", "Electricity Gas Steam and Air Conditioning Supply", "Financial and Insurance Activities", 
-                    "Human Health and Social Work Activities", "Manufacturing", "Mining and Quarrying", 
-                    "Other Service Activities", "Professional Scientific and Technical Activities", 
-                    "Public Administration and Defence", "Publishing Broadcasting and Content Production", 
-                    "Real Estate Activities", "Telecom & IT Services", "Transportation and Storage", 
-                    "Water Supply & Waste Management", "Wholesale and Retail Trade"
-                ],
-                median: [2.67, 8.57, 1.45, 4.77, 19.42, 10.72, 8.87, 14.56, 0.15, 9.90, 21.43, 9.34, 12.23, -0.44, 9.40, 19.13, 13.10, 10.65, 8.62, 5.66],
-                mean: [9.23, 12.93, 2.53, 6.94, 20.59, 8.26, 7.26, 18.53, 6.60, 10.79, 42.63, 10.89, 18.17, 4.45, 7.64, 23.50, 11.24, 12.46, 10.36, 9.98]
-            }
-        };
+        const payGapData = { ... };
 
         function createChart(year, chartId, dataType) {
             const ctx = document.getElementById(chartId).getContext('2d');
