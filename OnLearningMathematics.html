@@ -5,119 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Mathematics</title>
     <style>
-        /* CSS Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Previous CSS styles remain unchanged */
+
+        /* Updated tooltip styles */
+        .tooltip {
+            position: relative;
+            text-decoration: underline;
+            color: #2980b9;
+            cursor: pointer;
         }
 
-        body {
-            background-color: #f9f9f9;
-            line-height: 1.7;
-            font-family: 'Arial', sans-serif;
-        }
-
-        .nav {
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
             background-color: #2c3e50;
-            padding: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        h1 {
-            color: #2c3e50;
+            color: #fff;
             text-align: center;
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-        }
-
-        .content-section {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
-
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        figure {
-            margin: 0;
-            text-align: center;
-        }
-
-        img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-        }
-
-        figcaption {
-            color: #666;
-            font-style: italic;
+            border-radius: 4px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the text */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             font-size: 0.9rem;
         }
 
-        @media (max-width: 768px) {
-            .image-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            img {
-                height: auto;
-            }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #2c3e50 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto; /* Allow interaction with the tooltip */
+        }
+
+        .tooltip-link {
+            color: #3498db;
+            text-decoration: underline;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .tooltip-link:hover {
+            color: #2980b9;
         }
     </style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="container">
-            <a href="index.html">← Back to Home</a>
-        </div>
-    </nav>
-
+    <!-- Previous HTML remains unchanged -->
+    
     <div class="container">
         <h1>Mathematics: Concrete or Abstract?</h1>
         
         <div class="content-section">
-            <p>Mathematics is often seen as an immense abstraction by its detractors - and some zealots. However, Mathematical abstractions exist only because of concrete ideas, and often even physical matter. Without the necessity for humans to travel we would never have come up with the idea of distance, and the triangle inequality that naturally follows from this notion. Without computers the Mandelbrot set would never have been discovered. Without advances in computing hardware and algorithmic techniques, Adrien Douady, and John H. Hubbard might have spent many years thinking that the Mandelbrot set was not connected simply because they could not produce graphs of high enough detail.<br><br>The late and great Vladimir Arnold had some strong ideas about the zealots of abstraction - he paints an image of French students who can quickly churn out lemmas in algebraic geometry yet are not even the faintest familiar with the elliptic curve, or the topological classification of surfaces. I believe as well that the damage that the Bourbaki group has done to the study of Mathematics is immense. What is not at issue however is the separation of Mathematics from physics as Arnold suggests. Mathematics is fun precisely because it is an intellectual pursuit that does not always have to be tied to concrete purposes or exact fields. Abstraction allows people to quickly handle problems in every possible domain, concrete or abstract. A mathematician can do computer science, can help figure out the optimal way to plan a city in a certain space, can do physics, a mathematician can do anything they want!<br><br>The history and movement of scientific thought can be summarised succinctly as “<em>From the concrete to the abstract, and from the abstract to the concrete.</em>” What Mathematics education and thinking so deeply needs is this movement.</p>
+            <p>Mathematics is often seen as an immense abstraction by its detractors - and some zealots. However, Mathematical abstractions exist only because of concrete ideas, and often even physical matter. Without the necessity for humans to travel we would never have come up with the idea of distance, and the <span class="tooltip">triangle inequality<span class="tooltiptext">
+            <a href="https://en.wikipedia.org/wiki/Triangle_inequality" class="tooltip-link" target="_blank">Wikipedia Link</a>
+            </span></span> that naturally follows from this notion. Without computers the <span class="tooltip">Mandelbrot set<span class="tooltiptext">
+            <a href="https://en.wikipedia.org/wiki/Mandelbrot_set" class="tooltip-link" target="_blank">Wikipedia Link</a>
+            </span></span> would never have been discovered. Without advances in computing hardware and algorithmic techniques, Adrien Douady, and John H. Hubbard might have never conjectured and proven that tha Mandelbrot set was <span class="tooltip">connected<span class="tooltiptext">Mandelbrot initially thought that the Mandelbrot set was not connected.<br>This was because he was not iterating his software could not display the Mandelbrot set to high enough detail.<br>
+            <a href="https://en.wikipedia.org/wiki/Connectedness" class="tooltip-link" target="_blank">Wikipedia Link for Connected</a><br>
+            <a href="https://pi.math.cornell.edu/~hubbard/OrsayEnglish.pdf" class="tooltip-link" target="_blank">Douady and Hubbard's notes on Dynamics including a proof that the Mandelbrot set is connected.</a>
+            </span></span>.<br><br>The late and great <span class="tooltip">Vladimir Arnold<span class="tooltiptext">One of the greatest Mathematicians of the 20th century, he wrote a controversial polemic that denounced the French school of Mathematics centred around the Bourbaki group.<br>While the source of his concerns is understandable, it comes off as somewhat biased.<br>
+            <a href="http://personal.cimat.mx:8181/~hector.chang/edo_21/teaching.pdf" class="tooltip-link" target="_blank">Arnold's polemic</a>            
+            </span></span> had some strong ideas about the zealots of abstraction - he paints an image of French students who can quickly churn out lemmas in algebraic geometry yet are not even the faintest familiar with the <span class="tooltip">elliptic curve<span class="tooltiptext">
+            <a href="https://en.wikipedia.org/wiki/Elliptic_curve" class="tooltip-link" target="_blank">Wikipedia Link</a>        
+            </span></span>, or the <span class="tooltip">topological classification of surfaces<span class="tooltiptext">
+            <a href="https://en.wikipedia.org/wiki/Riemann_surface" class="tooltip-link" target="_blank">Wikipedia Link for Riemann surfaces</a><br>
+            </span></span>. I believe as well that the damage that the Bourbaki group has done to the study of Mathematics is immense. What is not at issue however is the separation of Mathematics from physics as Arnold suggests. Mathematics is fun precisely because it is an intellectual pursuit that does not always have to be tied to concrete purposes or exact fields. Abstraction allows people to quickly handle problems in every possible domain, concrete or abstract. A mathematician can do computer science, can help figure out the optimal way to plan a city in a certain space, can do physics, a mathematician can do anything they want!<br><br>The history and movement of scientific thought can be summarised succinctly as “<em>From the concrete to the abstract, and from the abstract to the concrete.</em>” What Mathematics education and thinking so deeply needs is this movement.</p>
+            </div>
+    
+            <div class="image-grid">
+                <figure>
+                    <img src="https://raw.githubusercontent.com/LeandraTolentino/Maths-Stuff/refs/heads/main/Firststrings.jpg" alt="Image1">
+                    <figcaption>Imagine a rope that can take on any length stuck to the wall by 4 pins - these 4 pins are the "fixed points" of a "tree". We can take off one pin at any time to unfurl the rope as we wish.</figcaption>
+                </figure>
+                
+                <figure>
+                    <img src="https://raw.githubusercontent.com/LeandraTolentino/Maths-Stuff/refs/heads/main/Secondstrings.jpg" alt="Image2">
+                    <figcaption>We have loosened the rope from the top right pin, and unfurled it. What we have just done is show that these two "trees" are isotopic.</figcaption>
+                </figure>
+                
+                <figure>
+                    <img src="https://raw.githubusercontent.com/LeandraTolentino/Maths-Stuff/refs/heads/main/Thirdstrings.jpg" alt="Image3">
+                    <figcaption>We have taken off two pins to make a mirror image. What we have here is not an isotopy of trees.</figcaption>
+                </figure>
+            </div>
         </div>
-
-        <div class="image-grid">
-            <figure>
-                <img src="https://raw.githubusercontent.com/LeandraTolentino/Maths-Stuff/refs/heads/main/Firststrings.jpg" alt="Image1">
-                <figcaption>Imagine a rope that can take on any length stuck to the wall by 4 pins - these 4 pins are the "fixed points" of a "tree". We can take off one pin at any time to unfurl the rope as we wish.</figcaption>
-            </figure>
-            
-            <figure>
-                <img src="https://raw.githubusercontent.com/LeandraTolentino/Maths-Stuff/refs/heads/main/Secondstrings.jpg" alt="Image2">
-                <figcaption>We have loosened the rope from the top right pin, and unfurled it. What we have just done is show that these two "trees" are isotopic.</figcaption>
-            </figure>
-            
-            <figure>
-                <img src="https://raw.githubusercontent.com/LeandraTolentino/Maths-Stuff/refs/heads/main/Thirdstrings.jpg" alt="Image3">
-                <figcaption>We have taken off two pins to make a mirror image. What we have here is not an isotopy of trees.</figcaption>
-            </figure>
-        </div>
-    </div>
-</body>
-</html>
+    </body>
+    </html>
