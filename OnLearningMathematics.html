@@ -22,11 +22,20 @@
             margin-bottom: 10px;
         }
 
-        li2 {
+        .ul2 {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #2c3e50;
+            width: 100%;
+        }
+
+        .nav-item {
             float: left;
         }
 
-        li2 a, .dropbtn {
+        .nav-item a, .dropbtn {
             display: inline-block;
             color: white;
             text-align: center;
@@ -34,14 +43,10 @@
             text-decoration: none;
         }
 
-        li2 a:hover, .dropdown:hover .dropbtn {
+        .nav-item a:hover, .dropdown:hover .dropbtn {
             background-color: red;
         }
-
-        li2.dropdown {
-            display: inline-block;
-        }
-
+        
         .dropdown-content {
             display: none;
             position: absolute;
@@ -214,28 +219,20 @@
             color: #2980b9;
         }
 
-        ul2 {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #2c3e50;
-        }
-
     </style>
 </head>
 <body>
-    <ul2>
-        <li2><a href="index.html">Home</a></li2>
-        <li2 class="dropdown">
+    <ul class="ul2">
+        <li class="nav-item"><a href="index.html">Home</a></li>
+        <li class="nav-item dropdown">
             <a href="javascript:void(0)" class="dropbtn">Data Analytics Projects</a>
             <div class="dropdown-content">
-            <a href="inflation-calc.html">ELO Inflation Calculator</a>
-            <a href="gender-pay-gap.html">Analysis of PayGap.ie data</a>
+                <a href="inflation-calc.html">ELO Inflation Calculator</a>
+                <a href="gender-pay-gap.html">Analysis of PayGap.ie data</a>
             </div>
-        </li2>
-        <li2><a href="OnLearningMathematics.html">Mathematics: Concrete or Abstract?</a></li2>
-    </ul2>
+        </li>
+        <li class="nav-item"><a href="OnLearningMathematics.html">Mathematics: Concrete or Abstract?</a></li>
+    </ul>
         
     <div class="container">
         <h1>Mathematics: Concrete or Abstract?</h1>
