@@ -60,29 +60,69 @@
             margin-bottom: 10px;
         }
 
-.links {
-    display: flex;
-    flex-direction: row; 
-    justify-content: center;
-}
+        li a, .dropbtn {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
 
-.links a {
-    border-left: 2px solid black; 
-    border-right: 2px solid black; 
-    margin: 0; 
-    padding-left: 10px; 
-    padding-right: 10px;
-}
+        li a:hover, .dropdown:hover .dropbtn {
+            background-color: red;
+        }
 
-.links :is(:first-child, :last-child) {
-    border: none;
-}
-.content-link {
-        text-decoration: none;
-        color: #000000; /* Pure black */
-        transition: all 0.2s ease;
-        border-bottom: 2px solid transparent; /* Reserve space for hover effect */
-    }
+        li.dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1;}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: row; 
+            justify-content: center;
+        }
+
+        .links a {
+            border-left: 2px solid black; 
+            border-right: 2px solid black; 
+            margin: 0; 
+            padding-left: 10px; 
+            padding-right: 10px;
+        }
+
+        .links :is(:first-child, :last-child) {
+            border: none;
+        }
+
+        .content-link {
+            text-decoration: none;
+            color: #000000; /* Pure black */
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent; /* Reserve space for hover effect */
+        }
 
     .nav {
             background-color: #2c3e50;
@@ -90,7 +130,7 @@
             margin-bottom: 2rem;
         }
 
-        .nav a {
+    .nav a {
             color: white;
             text-decoration: none;
             font-size: 1.1rem;
@@ -100,12 +140,19 @@
 <body>
     <nav class="nav">
         <div class="container2">
-            <a href="OnLearningMathematics.html">→ Mathematics: Concrete or Abstract?</a>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Data Analytics Projects</a>
+            <div class="dropdown-content">
+            <a href="inflation-calc.html">ELO Inflation Calculator</a>
+            <a href="gender-pay-gap.html">Analysis of PayGap.ie data</a>
+            </div>
+        </li>
+        <li><a href="OnLearningMathematics.html">Mathematics: Concrete or Abstract?</a></li>
         </div>
     </nav>
 
     <div class="container">
-        <!-- Name with pride flag background -->
         <h1>Leandra Tolentino</h1>
         
         <p style="text-align: center;">Dublin 18, County Dublin, Ireland</p>
@@ -121,7 +168,6 @@
             <p>In the field of "pure" Mathematics, I have extensive knowledge of Complex dynamics, and Analysis.</p>
             <p>Helping people understand these abstract fields concretely is something I am passionate about.</p>
             <p>I also enjoy studying data in my free time, and I have an interest in algorithms, and computational science.</p>
-            <p>When I'm not studying or working I love to read books, and study data: <a href="interesting_tidbits.html"> fascinating tidbits</a>.</p>
         </div>
 
         <div class="section">
@@ -136,8 +182,8 @@
             <ul>
                 <li><strong>Using Copula in Analysis of Competing Risks (Ongoing, 2025)</strong><br>Investigating the usage of copula in R to model risks such as those in bond portfolios.</li>
                 <li><strong>BA Thesis: Core Entropy and Crossings in Hubbard Trees (Ongoing, 2025)</strong><br>Review of dynamics on Hubbard trees, in particular those associated with quadratic polynomials extendable to generalised pseudo-anosov homeomorphisms. Additionally some study of the entropy of these trees.</li>
-                <li><strong>Analysis of Performance Ratings of Leaderboard Chess Players 1975-2025 (2025)</strong><br>Scraped chess rating data using JavaScript, analyzed it in R and ChartJS, and developed an ELO-Inflation calculator in both Python and Javascript. <a href="inflation-calc.html">Calculator</a></li>
-                <li><strong>Analysis of Gender Pay Gap in Large Firms (2025)</strong><br>Using data from <a href="https://paygap.ie/">Paygap.ie</a> studied the (mean and median) pay gap for various industries, and analysed the data in R and ChartJS. <a href="gender-pay-gap.html">The Data</a></li>
+                <li><strong>Analysis of Performance Ratings of Leaderboard Chess Players 1975-2025 (2025)</strong><br>Scraped chess rating data using JavaScript, analyzed it in R and ChartJS, and developed an ELO-Inflation calculator in both Python and Javascript.</li>
+                <li><strong>Analysis of Gender Pay Gap in Large Firms (2025)</strong><br>Using data from Paygap.ie studied the (mean and median) pay gap for various industries, and analysed the data in R and ChartJS.</li>
                 <li><strong>Maths Notes Page (2024)</strong><br>A very simple page with notes in pure maths, and resources for students I did TA work for. The page is old, and out of date and I only share it upon request now for that reason. Though, the notes are handy.</li>
                 <li><strong>Museum IT System (2022)</strong><br>Group project representing the IT system of a museum in XML, contributed XML data on artist details, and an x-query about countries of origin of artist(s). The work for this old project is not retrievable by usual means unfortunately.</li>
             </ul>
