@@ -66,11 +66,78 @@
         display: flex;
         justify-content: center;
         }
+        li {
+            margin-bottom: 10px;
+        }
 
+        .ul2 {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #2c3e50;
+            width: 100%;
+            display: flow-root; 
+            position: relative; 
+        }
+
+        .nav-item {
+            float: left;
+        }
+
+        .nav-item a, .dropbtn {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px 0 16px;
+            text-decoration: none;
+        }
+
+        .nav-item a:hover, .dropdown:hover .dropbtn {
+            background-color: red;
+        }
+
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1;}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
+    <ul class="ul2">
+        <li class="nav-item"><a href="index.html">Home</a></li>
+        <li class="nav-item dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Data Analytics Projects</a>
+            <div class="dropdown-content">
+                <a href="inflation-calc.html">ELO Inflation Calculator</a>
+                <a href="gender-pay-gap.html">Analysis of PayGap.ie data</a>
+            </div>
+        </li>
+        <li class="nav-item"><a href="OnLearningMathematics.html">Mathematics: Concrete or Abstract?</a></li>
+    </ul>
     <div class="main-container">
         <!-- Left Column - Calculator -->
         <div class="calculator-container">
