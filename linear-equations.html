@@ -6,7 +6,6 @@
 <title>Junior Certificate Materials</title>
 
 <style>
-/* ===== GENERAL ===== */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -34,7 +33,7 @@ h1, h2 {
     padding-bottom: 5px;
 }
 
-/* ===== NAVBAR ===== */
+/* Navbar */
 .ul2 {
     list-style-type: none;
     margin: 0;
@@ -44,27 +43,20 @@ h1, h2 {
     display: flow-root;
 }
 
-.nav-item {
-    float: left;
-}
-
+.nav-item { float: left; }
 .nav-item a {
     display: inline-block;
     color: white;
     padding: 14px 16px;
     text-decoration: none;
 }
+.nav-item a:hover { background-color: #1a252f; }
 
-.nav-item a:hover {
-    background-color: #1a252f;
-}
-
-/* ===== BLOCKS ===== */
+/* Draggable blocks pool */
 .blocks {
     text-align: center;
     margin-bottom: 25px;
 }
-
 .block {
     display: inline-block;
     padding: 10px 16px;
@@ -77,20 +69,19 @@ h1, h2 {
     user-select: none;
 }
 
-/* ===== SCALE ===== */
+/* Scale */
 .scale-wrapper {
     display: flex;
     justify-content: center;
     margin-top: 40px;
 }
-
 .scale {
     position: relative;
     width: 520px;
-    height: 260px;
+    height: 300px; /* increased height so pans are lower */
 }
 
-/* Pivot */
+/* Pivot and beam */
 .pivot {
     position: absolute;
     top: 120px;
@@ -102,8 +93,6 @@ h1, h2 {
     transform: translateX(-50%);
     z-index: 3;
 }
-
-/* Beam */
 .beam {
     position: absolute;
     top: 130px;
@@ -117,7 +106,7 @@ h1, h2 {
     z-index: 2;
 }
 
-/* Pans */
+/* Pans moved lower */
 .pan {
     position: absolute;
     width: 160px;
@@ -125,22 +114,31 @@ h1, h2 {
     background: #eee;
     border: 2px solid #333;
     border-radius: 8px;
-    top: 160px;
+    top: 200px; /* moved further down */
     padding: 6px;
     text-align: center;
 }
 
+/* left and right pans */
 .pan.left { left: 0; }
 .pan.right { right: 0; }
+.pan.over { background: #dff0ff; }
 
-.pan.over {
-    background: #dff0ff;
+/* Placeholder blocks for visuals */
+.pan .placeholder {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+    background: #ffcccb;
+    border-radius: 4px;
 }
 
-/* Blocks placed on pans */
+/* Dragged blocks that land in pans */
 .pan .block {
     background: #95a5a6;
     cursor: default;
+    margin: 3px;
 }
 
 /* Caption */
@@ -181,11 +179,10 @@ h1, h2 {
     <div class="section">
         <h2>Balance Model</h2>
         <p style="text-align:center;">
-            Drag blocks onto either side of the scale.
-            If the scale balances, the equation is well-defined.
+            Drag blocks onto either side of the scale. A balanced scale means the equation is well-defined.
         </p>
 
-        <!-- DRAGGABLE BLOCKS -->
+        <!-- Draggable pool -->
         <div class="blocks">
             <div class="block" draggable="true" data-type="x">x</div>
             <div class="block" draggable="true" data-type="c" data-value="1">1</div>
@@ -193,19 +190,26 @@ h1, h2 {
             <div class="block" draggable="true" data-type="c" data-value="5">5</div>
         </div>
 
-        <!-- SCALE -->
+        <!-- Scale -->
         <div class="scale-wrapper">
             <div class="scale">
                 <div class="beam" id="beam"></div>
                 <div class="pivot"></div>
 
-                <div class="pan left" data-side="left">Left side</div>
-                <div class="pan right" data-side="right">Right side</div>
+                <div class="pan left" data-side="left">
+                    <!-- Cute placeholder blocks -->
+                    <div class="placeholder"></div>
+                    <div class="placeholder"></div>
+                </div>
+                <div class="pan right" data-side="right">
+                    <div class="placeholder"></div>
+                    <div class="placeholder"></div>
+                </div>
             </div>
         </div>
 
         <div class="caption">
-            A balanced scale represents an equation with equal values on both sides.
+            The placeholders make the pans look cute. Drag blocks onto the pans to see tilting.
         </div>
     </div>
 </div>
@@ -230,11 +234,7 @@ pans.forEach(pan => {
         e.preventDefault();
         pan.classList.add('over');
     });
-
-    pan.addEventListener('dragleave', () => {
-        pan.classList.remove('over');
-    });
-
+    pan.addEventListener('dragleave', () => pan.classList.remove('over'));
     pan.addEventListener('drop', e => {
         e.preventDefault();
         pan.classList.remove('over');
@@ -243,11 +243,8 @@ pans.forEach(pan => {
         const value = Number(e.dataTransfer.getData('value'));
         const label = e.dataTransfer.getData('label');
 
-        if (type === "x") {
-            sides[pan.dataset.side].x += 1;
-        } else {
-            sides[pan.dataset.side].c += value;
-        }
+        if(type==="x") sides[pan.dataset.side].x +=1;
+        else sides[pan.dataset.side].c += value;
 
         const placed = document.createElement('div');
         placed.className = 'block';
@@ -261,18 +258,9 @@ pans.forEach(pan => {
 function updateScale() {
     const dx = sides.left.x - sides.right.x;
     const dc = sides.right.c - sides.left.c;
-
     let angle = 0;
-
-    // Same x-coefficient → constants determine tilt
-    if (dx === 0) {
-        angle = Math.max(-12, Math.min(12, dc * 3));
-    }
-    // Different x-coefficients → solvable → balanced
-    else {
-        angle = 0;
-    }
-
+    if(dx===0) angle = Math.max(-12, Math.min(12, dc*3));
+    else angle = 0;
     beam.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 }
 </script>
