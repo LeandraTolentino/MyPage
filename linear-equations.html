@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Junior Certificate Materials – Scale with Cute Blocks</title>
+<title>Junior Certificate Materials – Scale with Cute Red Blocks</title>
 
 <style>
 body {
@@ -53,6 +53,7 @@ h1, h2 { text-align: center; }
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    position: relative;
 }
 .scale {
     position: relative;
@@ -97,8 +98,8 @@ h1, h2 { text-align: center; }
     padding: 6px;
     text-align: center;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-end;
 }
 
 /* left and right pans */
@@ -106,21 +107,20 @@ h1, h2 { text-align: center; }
 .pan.right { right: 0; }
 .pan.over { background: #dff0ff; }
 
-/* Cute little red block that moves with the pan */
-.pan .cute-block {
-    width: 20px;
-    height: 20px;
+/* Decorative red blocks on scale */
+.red-block {
+    position: absolute;
+    width: 24px;
+    height: 24px;
     background: #ff4c4c;
     border-radius: 4px;
-    margin: 2px;
+    top: 180px; /* relative to scale wrapper */
+    z-index: 4;
 }
 
-/* Blocks dropped into pans */
-.pan .block {
-    background: #95a5a6;
-    cursor: default;
-    margin: 3px;
-}
+/* Place red blocks above pans initially */
+.red-left { left: 30px; }
+.red-right { right: 30px; }
 
 .caption {
     text-align: center;
@@ -168,17 +168,17 @@ h1, h2 { text-align: center; }
                 <div class="beam" id="beam"></div>
                 <div class="pivot"></div>
 
-                <div class="pan left" data-side="left">
-                    <div class="cute-block"></div>
-                </div>
-                <div class="pan right" data-side="right">
-                    <div class="cute-block"></div>
-                </div>
+                <div class="pan left" data-side="left"></div>
+                <div class="pan right" data-side="right"></div>
+
+                <!-- Red decorative blocks sitting on top of the pans -->
+                <div class="red-block red-left"></div>
+                <div class="red-block red-right"></div>
             </div>
         </div>
 
         <div class="caption">
-            The little red blocks sit on the pans and move as the scale tilts.
+            The little red blocks sit on the scale and move as it tilts.
         </div>
     </div>
 </div>
@@ -228,9 +228,15 @@ function updateScale() {
     if(dx===0) angle = Math.max(-12, Math.min(12, dc*3));
     else angle = 0;
     beam.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+
+    // Rotate red blocks with the beam
+    const leftBlock = document.querySelector('.red-left');
+    const rightBlock = document.querySelector('.red-right');
+
+    leftBlock.style.transform = `rotate(${angle}deg) translate(-50%,0)`;
+    rightBlock.style.transform = `rotate(${angle}deg) translate(50%,0)`;
 }
 </script>
 
 </body>
 </html>
-
