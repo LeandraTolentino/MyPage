@@ -1,215 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Junior Certificate Materials</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Junior Certificate Materials</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
-        h1, h2 {
-            text-align: center;
-        }
+h1, h2 {
+    text-align: center;
+}
 
-        .section {
-            margin-bottom: 20px;
-        }
+.section {
+    margin-bottom: 30px;
+}
 
-        .section h2 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 5px;
-        }
+.section h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
 
-        /* NAVBAR */
-        .ul2 {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            background-color: #2c3e50;
-            width: 100%;
-            display: flow-root;
-        }
+/* ===== NAVBAR ===== */
+.ul2 {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #2c3e50;
+    width: 100%;
+    display: flow-root;
+}
 
-        .nav-item {
-            float: left;
-        }
+.nav-item {
+    float: left;
+}
 
-        .nav-item a {
-            display: inline-block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
+.nav-item a {
+    display: inline-block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+}
 
-        /* SCALE AREA */
-        .scale-area {
-            text-align: center;
-            margin-top: 40px;
-        }
+.nav-item a:hover {
+    background-color: #1a252f;
+}
 
-        .blocks {
-            margin-bottom: 20px;
-        }
+/* ===== BLOCKS ===== */
+.blocks {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-        .block {
-            display: inline-block;
-            padding: 10px 15px;
-            margin: 5px;
-            background: #3498db;
-            color: white;
-            border-radius: 6px;
-            cursor: grab;
-            user-select: none;
-            font-weight: bold;
-        }
+.block {
+    display: inline-block;
+    padding: 10px 16px;
+    margin: 6px;
+    background: #3498db;
+    color: white;
+    border-radius: 6px;
+    cursor: grab;
+    font-weight: bold;
+    user-select: none;
+}
 
-        .scale {
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 40px auto;
-            width: 420px;
-        }
+/* ===== SCALE ===== */
+.scale-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
 
-        .pan {
-            width: 150px;
-            min-height: 90px;
-            border: 2px solid #333;
-            border-radius: 8px;
-            padding: 5px;
-            background: #eee;
-        }
+.scale {
+    position: relative;
+    width: 520px;
+    height: 260px;
+}
 
-        .pivot {
-            width: 20px;
-            height: 20px;
-            background: #333;
-            border-radius: 50%;
-        }
+/* Pivot */
+.pivot {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: #333;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
 
-        .pan.over {
-            background: #dff0ff;
-        }
+/* Beam */
+.beam {
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    width: 460px;
+    height: 6px;
+    background: #444;
+    transform-origin: center center;
+    transform: translateX(-50%) rotate(0deg);
+    transition: transform 0.6s ease;
+    z-index: 2;
+}
 
-        #result {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-    </style>
+/* Pans */
+.pan {
+    position: absolute;
+    width: 160px;
+    min-height: 70px;
+    background: #eee;
+    border: 2px solid #333;
+    border-radius: 8px;
+    top: 160px;
+    padding: 6px;
+    text-align: center;
+}
+
+.pan.left { left: 0; }
+.pan.right { right: 0; }
+
+.pan.over {
+    background: #dff0ff;
+}
+
+/* Blocks placed on pans */
+.pan .block {
+    background: #95a5a6;
+    cursor: default;
+}
+
+/* Caption */
+.caption {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+}
+</style>
 </head>
 
 <body>
-    <ul class="ul2">
-        <li class="nav-item"><a href="index.html">Home</a></li>
-        <li class="nav-item"><a href="junior-cert.html">Junior Certificate Materials</a></li>
-    </ul>
 
-    <div class="container">
-        <h1>Linear Equations</h1>
+<ul class="ul2">
+    <li class="nav-item"><a href="index.html">Home</a></li>
+    <li class="nav-item"><a href="inflation-calc.html">ELO Inflation Calculator</a></li>
+    <li class="nav-item"><a href="gender-pay-gap.html">Gender Pay Gap Analysis</a></li>
+    <li class="nav-item"><a href="OnLearningMathematics.html">Mathematics: Concrete or Abstract?</a></li>
+    <li class="nav-item"><a href="junior-cert.html">Junior Certificate Materials</a></li>
+</ul>
 
-        <div class="section">
-            <h2>What is a Linear Equation?</h2>
-            <p>
-                A linear equation is an equation where the graph of the equation is a line.
-                One way to think about equations is as a <strong>balance</strong>.
-            </p>
-        </div>
+<div class="container">
+    <h1>Linear Equations</h1>
 
-        <div class="scale-area">
-            <h2>Balance the Equation</h2>
-            <p>Drag blocks onto each side of the scale.</p>
-
-            <div class="blocks">
-                <div class="block" draggable="true" data-weight="1">x</div>
-                <div class="block" draggable="true" data-weight="1">1</div>
-                <div class="block" draggable="true" data-weight="2">2</div>
-                <div class="block" draggable="true" data-weight="5">5</div>
-            </div>
-
-            <div class="scale">
-                <div class="pan left" data-side="left">Left side</div>
-                <div class="pivot"></div>
-                <div class="pan right" data-side="right">Right side</div>
-            </div>
-
-            <p id="result">Drop blocks to compare both sides.</p>
-        </div>
+    <div class="section">
+        <h2>What is a Linear Equation?</h2>
+        <p>
+            A linear equation is an equation where the graph of the equation is a line
+            and its slope is constant.
+        </p>
+        <p>
+            One way to think about equations is as a <strong>balance</strong>.
+            Both sides must have the same “weight”.
+        </p>
     </div>
 
-    <script>
-        let weights = {
-            left: 0,
-            right: 0
-        };
+    <div class="section">
+        <h2>Balance Model</h2>
+        <p style="text-align:center;">
+            Drag blocks onto either side of the scale.
+            If the scale balances, the equation is well-defined.
+        </p>
 
-        const blocks = document.querySelectorAll('.block');
-        const pans = document.querySelectorAll('.pan');
-        const result = document.getElementById('result');
+        <div class="blocks">
+            <div class="block" draggable="true" data-weight="1">x</div>
+            <div class="block" draggable="true" data-weight="1">1</div>
+            <div class="block" draggable="true" data-weight="2">2</div>
+            <div class="block" draggable="true" data-weight="5">5</div>
+        </div>
 
-        blocks.forEach(block => {
-            block.addEventListener('dragstart', e => {
-                e.dataTransfer.setData('weight', block.dataset.weight);
-                e.dataTransfer.setData('label', block.textContent);
-            });
-        });
+        <div class="scale-wrapper">
+            <div class="scale">
+                <div class="beam" id="beam"></div>
+                <div class="pivot"></div>
 
-        pans.forEach(pan => {
-            pan.addEventListener('dragover', e => {
-                e.preventDefault();
-                pan.classList.add('over');
-            });
+                <div class="pan left" data-side="left">Left side</div>
+                <div class="pan right" data-side="right">Right side</div>
+            </div>
+        </div>
 
-            pan.addEventListener('dragleave', () => {
-                pan.classList.remove('over');
-            });
+        <div class="caption">
+            A balanced scale represents an equation with equal values on both sides.
+        </div>
+    </div>
+</div>
 
-            pan.addEventListener('drop', e => {
-                e.preventDefault();
-                pan.classList.remove('over');
+<script>
+let weights = { left: 0, right: 0 };
 
-                const weight = Number(e.dataTransfer.getData('weight'));
-                const label = e.dataTransfer.getData('label');
+const blocks = document.querySelectorAll('.block');
+const pans = document.querySelectorAll('.pan');
+const beam = document.getElementById('beam');
 
-                weights[pan.dataset.side] += weight;
+blocks.forEach(block => {
+    block.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('weight', block.dataset.weight);
+        e.dataTransfer.setData('label', block.textContent);
+    });
+});
 
-                const placed = document.createElement('div');
-                placed.textContent = label;
-                placed.className = 'block';
-                placed.style.background = '#95a5a6';
-                placed.style.cursor = 'default';
+pans.forEach(pan => {
+    pan.addEventListener('dragover', e => {
+        e.preventDefault();
+        pan.classList.add('over');
+    });
 
-                pan.appendChild(placed);
+    pan.addEventListener('dragleave', () => {
+        pan.classList.remove('over');
+    });
 
-                updateResult();
-            });
-        });
+    pan.addEventListener('drop', e => {
+        e.preventDefault();
+        pan.classList.remove('over');
 
-        function updateResult() {
-            if (weights.left === weights.right) {
-                result.textContent = "✅ Balanced: both sides are equal.";
-            } else if (weights.left > weights.right) {
-                result.textContent = "⬅️ Left side is heavier.";
-            } else {
-                result.textContent = "➡️ Right side is heavier.";
-            }
-        }
-    </script>
+        const weight = Number(e.dataTransfer.getData('weight'));
+        const label = e.dataTransfer.getData('label');
+
+        weights[pan.dataset.side] += weight;
+
+        const placed = document.createElement('div');
+        placed.className = 'block';
+        placed.textContent = label;
+
+        pan.appendChild(placed);
+
+        updateScale();
+    });
+});
+
+function updateScale() {
+    const diff = weights.right - weights.left;
+    const angle = Math.max(-12, Math.min(12, diff * 4));
+    beam.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+}
+</script>
+
 </body>
 </html>
