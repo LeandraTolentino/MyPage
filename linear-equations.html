@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Junior Certificate Materials – Scale with Blocks on Pans</title>
+<title>Junior Certificate Materials</title>
 
 <style>
+/* ===== GENERAL ===== */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -33,7 +34,7 @@ h1, h2 {
     padding-bottom: 5px;
 }
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 .ul2 {
     list-style-type: none;
     margin: 0;
@@ -43,7 +44,9 @@ h1, h2 {
     display: flow-root;
 }
 
-.nav-item { float: left; }
+.nav-item {
+    float: left;
+}
 
 .nav-item a {
     display: inline-block;
@@ -52,9 +55,29 @@ h1, h2 {
     text-decoration: none;
 }
 
-.nav-item a:hover { background-color: #1a252f; }
+.nav-item a:hover {
+    background-color: #1a252f;
+}
 
-/* SCALE */
+/* ===== BLOCKS ===== */
+.blocks {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.block {
+    display: inline-block;
+    padding: 10px 16px;
+    margin: 6px;
+    background: #3498db;
+    color: white;
+    border-radius: 6px;
+    cursor: grab;
+    font-weight: bold;
+    user-select: none;
+}
+
+/* ===== SCALE ===== */
 .scale-wrapper {
     display: flex;
     justify-content: center;
@@ -67,7 +90,7 @@ h1, h2 {
     height: 260px;
 }
 
-/* Pivot and beam */
+/* Pivot */
 .pivot {
     position: absolute;
     top: 120px;
@@ -80,6 +103,7 @@ h1, h2 {
     z-index: 3;
 }
 
+/* Beam */
 .beam {
     position: absolute;
     top: 130px;
@@ -104,32 +128,22 @@ h1, h2 {
     top: 160px;
     padding: 6px;
     text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-end;
 }
 
 .pan.left { left: 0; }
 .pan.right { right: 0; }
 
-.pan.over { background: #dff0ff; }
-
-/* BLOCKS */
-.block {
-    display: inline-block;
-    padding: 8px 14px;
-    margin: 4px;
-    background: #3498db;
-    color: white;
-    border-radius: 6px;
-    cursor: grab;
-    font-weight: bold;
-    user-select: none;
+.pan.over {
+    background: #dff0ff;
 }
 
-.pan .block { background: #95a5a6; cursor: grab; }
+/* Blocks placed on pans */
+.pan .block {
+    background: #95a5a6;
+    cursor: default;
+}
 
+/* Caption */
 .caption {
     text-align: center;
     margin-top: 20px;
@@ -167,30 +181,31 @@ h1, h2 {
     <div class="section">
         <h2>Balance Model</h2>
         <p style="text-align:center;">
-            Drag blocks directly into the pans. The scale tilts according to the equation.
+            Drag blocks onto either side of the scale.
+            If the scale balances, the equation is well-defined.
         </p>
 
+        <!-- DRAGGABLE BLOCKS -->
+        <div class="blocks">
+            <div class="block" draggable="true" data-type="x">x</div>
+            <div class="block" draggable="true" data-type="c" data-value="1">1</div>
+            <div class="block" draggable="true" data-type="c" data-value="2">2</div>
+            <div class="block" draggable="true" data-type="c" data-value="5">5</div>
+        </div>
+
+        <!-- SCALE -->
         <div class="scale-wrapper">
             <div class="scale">
                 <div class="beam" id="beam"></div>
                 <div class="pivot"></div>
 
-                <div class="pan left" data-side="left" ondragover="event.preventDefault()">
-                    <!-- Initial blocks -->
-                    <div class="block" draggable="true" data-type="x">x</div>
-                    <div class="block" draggable="true" data-type="c" data-value="1">1</div>
-                </div>
-
-                <div class="pan right" data-side="right" ondragover="event.preventDefault()">
-                    <!-- Initial blocks -->
-                    <div class="block" draggable="true" data-type="c" data-value="5">5</div>
-                    <div class="block" draggable="true" data-type="c" data-value="2">2</div>
-                </div>
+                <div class="pan left" data-side="left">Left side</div>
+                <div class="pan right" data-side="right">Right side</div>
             </div>
         </div>
 
         <div class="caption">
-            Blocks are part of the pans and move as the scale tilts.
+            A balanced scale represents an equation with equal values on both sides.
         </div>
     </div>
 </div>
@@ -198,80 +213,69 @@ h1, h2 {
 <script>
 let sides = { left: { x: 0, c: 0 }, right: { x: 0, c: 0 } };
 
-// Initialize blocks for drag-and-drop within pans
-function setupDrag(block) {
+const blocks = document.querySelectorAll('.block');
+const pans = document.querySelectorAll('.pan');
+const beam = document.getElementById('beam');
+
+blocks.forEach(block => {
     block.addEventListener('dragstart', e => {
         e.dataTransfer.setData('type', block.dataset.type);
         e.dataTransfer.setData('value', block.dataset.value || 0);
-        e.dataTransfer.setData('origin', block.parentElement.dataset.side);
         e.dataTransfer.setData('label', block.textContent);
     });
-}
+});
 
-document.querySelectorAll('.block').forEach(setupDrag);
+pans.forEach(pan => {
+    pan.addEventListener('dragover', e => {
+        e.preventDefault();
+        pan.classList.add('over');
+    });
 
-document.querySelectorAll('.pan').forEach(pan => {
+    pan.addEventListener('dragleave', () => {
+        pan.classList.remove('over');
+    });
+
     pan.addEventListener('drop', e => {
         e.preventDefault();
         pan.classList.remove('over');
 
         const type = e.dataTransfer.getData('type');
         const value = Number(e.dataTransfer.getData('value'));
-        const origin = e.dataTransfer.getData('origin');
         const label = e.dataTransfer.getData('label');
 
-        // If moving within same pan, ignore
-        if(origin === pan.dataset.side) return;
+        if (type === "x") {
+            sides[pan.dataset.side].x += 1;
+        } else {
+            sides[pan.dataset.side].c += value;
+        }
 
-        // Remove from original pan
-        const originPan = document.querySelector(`.pan[data-side='${origin}']`);
-        const blocksInOrigin = Array.from(originPan.children);
-        const movedBlock = blocksInOrigin.find(b => b.textContent === label && b.dataset.type === type);
-        if(movedBlock) originPan.removeChild(movedBlock);
-
-        // Add to new pan
-        const newBlock = document.createElement('div');
-        newBlock.className = 'block';
-        newBlock.textContent = label;
-        newBlock.dataset.type = type;
-        if(type === 'c') newBlock.dataset.value = value;
-        pan.appendChild(newBlock);
-        setupDrag(newBlock);
+        const placed = document.createElement('div');
+        placed.className = 'block';
+        placed.textContent = label;
+        pan.appendChild(placed);
 
         updateScale();
     });
-
-    pan.addEventListener('dragover', e => {
-        e.preventDefault();
-        pan.classList.add('over');
-    });
-
-    pan.addEventListener('dragleave', () => pan.classList.remove('over'));
 });
 
 function updateScale() {
-    sides.left = { x:0, c:0 };
-    sides.right = { x:0, c:0 };
-
-    ['left','right'].forEach(side=>{
-        document.querySelectorAll(`.pan[data-side='${side}'] .block`).forEach(b=>{
-            if(b.dataset.type==='x') sides[side].x +=1;
-            else sides[side].c += Number(b.dataset.value);
-        });
-    });
-
     const dx = sides.left.x - sides.right.x;
     const dc = sides.right.c - sides.left.c;
 
     let angle = 0;
-    if(dx===0) angle = Math.max(-12, Math.min(12, dc*3));
-    else angle = 0;
 
-    document.getElementById('beam').style.transform = `translateX(-50%) rotate(${angle}deg)`;
+    // Same x-coefficient → constants determine tilt
+    if (dx === 0) {
+        angle = Math.max(-12, Math.min(12, dc * 3));
+    }
+    // Different x-coefficients → solvable → balanced
+    else {
+        angle = 0;
+    }
+
+    beam.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 }
-updateScale();
 </script>
 
 </body>
 </html>
-
