@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Junior Certificate Materials</title>
+<title>Junior Certificate Materials – Scale with Cute Blocks</title>
 
 <style>
 body {
@@ -20,39 +20,18 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-h1, h2 {
-    text-align: center;
-}
+h1, h2 { text-align: center; }
 
-.section {
-    margin-bottom: 30px;
-}
-
-.section h2 {
-    border-bottom: 2px solid #333;
-    padding-bottom: 5px;
-}
+.section { margin-bottom: 30px; }
+.section h2 { border-bottom: 2px solid #333; padding-bottom: 5px; }
 
 /* Navbar */
-.ul2 {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    background-color: #2c3e50;
-    width: 100%;
-    display: flow-root;
-}
-
+.ul2 { list-style-type: none; margin: 0; padding: 0; background-color: #2c3e50; width: 100%; display: flow-root; }
 .nav-item { float: left; }
-.nav-item a {
-    display: inline-block;
-    color: white;
-    padding: 14px 16px;
-    text-decoration: none;
-}
+.nav-item a { display: inline-block; color: white; padding: 14px 16px; text-decoration: none; }
 .nav-item a:hover { background-color: #1a252f; }
 
-/* Draggable blocks pool */
+/* Draggable pool */
 .blocks {
     text-align: center;
     margin-bottom: 25px;
@@ -78,7 +57,7 @@ h1, h2 {
 .scale {
     position: relative;
     width: 520px;
-    height: 300px; /* increased height so pans are lower */
+    height: 300px;
 }
 
 /* Pivot and beam */
@@ -114,9 +93,12 @@ h1, h2 {
     background: #eee;
     border: 2px solid #333;
     border-radius: 8px;
-    top: 200px; /* moved further down */
+    top: 200px;
     padding: 6px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 /* left and right pans */
@@ -124,24 +106,22 @@ h1, h2 {
 .pan.right { right: 0; }
 .pan.over { background: #dff0ff; }
 
-/* Placeholder blocks for visuals */
-.pan .placeholder {
-    display: inline-block;
+/* Cute little red block that moves with the pan */
+.pan .cute-block {
     width: 20px;
     height: 20px;
-    margin: 2px;
-    background: #ffcccb;
+    background: #ff4c4c;
     border-radius: 4px;
+    margin: 2px;
 }
 
-/* Dragged blocks that land in pans */
+/* Blocks dropped into pans */
 .pan .block {
     background: #95a5a6;
     cursor: default;
     margin: 3px;
 }
 
-/* Caption */
 .caption {
     text-align: center;
     margin-top: 20px;
@@ -152,7 +132,7 @@ h1, h2 {
 
 <body>
 
-<!-- NAVBAR -->
+<!-- Navbar -->
 <ul class="ul2">
     <li class="nav-item"><a href="index.html">Home</a></li>
     <li class="nav-item"><a href="inflation-calc.html">ELO Inflation Calculator</a></li>
@@ -166,21 +146,13 @@ h1, h2 {
 
     <div class="section">
         <h2>What is a Linear Equation?</h2>
-        <p>
-            A linear equation is an equation where the graph of the equation is a line
-            and its slope is constant.
-        </p>
-        <p>
-            One way to think about equations is as a <strong>balance</strong>.
-            Both sides must have the same “weight”.
-        </p>
+        <p>A linear equation is an equation where the graph is a line with constant slope.</p>
+        <p>One way to think about equations is as a <strong>balance</strong>. Both sides must weigh the same.</p>
     </div>
 
     <div class="section">
         <h2>Balance Model</h2>
-        <p style="text-align:center;">
-            Drag blocks onto either side of the scale. A balanced scale means the equation is well-defined.
-        </p>
+        <p style="text-align:center;">Drag blocks from above onto either side of the scale.</p>
 
         <!-- Draggable pool -->
         <div class="blocks">
@@ -197,25 +169,22 @@ h1, h2 {
                 <div class="pivot"></div>
 
                 <div class="pan left" data-side="left">
-                    <!-- Cute placeholder blocks -->
-                    <div class="placeholder"></div>
-                    <div class="placeholder"></div>
+                    <div class="cute-block"></div>
                 </div>
                 <div class="pan right" data-side="right">
-                    <div class="placeholder"></div>
-                    <div class="placeholder"></div>
+                    <div class="cute-block"></div>
                 </div>
             </div>
         </div>
 
         <div class="caption">
-            The placeholders make the pans look cute. Drag blocks onto the pans to see tilting.
+            The little red blocks sit on the pans and move as the scale tilts.
         </div>
     </div>
 </div>
 
 <script>
-let sides = { left: { x: 0, c: 0 }, right: { x: 0, c: 0 } };
+let sides = { left: { x:0, c:0 }, right: { x:0, c:0 } };
 
 const blocks = document.querySelectorAll('.block');
 const pans = document.querySelectorAll('.pan');
@@ -230,10 +199,7 @@ blocks.forEach(block => {
 });
 
 pans.forEach(pan => {
-    pan.addEventListener('dragover', e => {
-        e.preventDefault();
-        pan.classList.add('over');
-    });
+    pan.addEventListener('dragover', e => { e.preventDefault(); pan.classList.add('over'); });
     pan.addEventListener('dragleave', () => pan.classList.remove('over'));
     pan.addEventListener('drop', e => {
         e.preventDefault();
@@ -267,3 +233,4 @@ function updateScale() {
 
 </body>
 </html>
+
