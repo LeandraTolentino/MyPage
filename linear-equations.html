@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Junior Certificate Materials</title>
-    <style>
 
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
+
         .container {
             max-width: 800px;
             margin: auto;
@@ -19,127 +20,196 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .container2 {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+
         h1, h2 {
             text-align: center;
         }
+
         .section {
             margin-bottom: 20px;
         }
+
         .section h2 {
             border-bottom: 2px solid #333;
             padding-bottom: 5px;
         }
 
-        li {
-            margin-bottom: 10px;
-        }
-
+        /* NAVBAR */
         .ul2 {
             list-style-type: none;
             margin: 0;
             padding: 0;
             background-color: #2c3e50;
             width: 100%;
-            display: flow-root; 
-            position: relative; 
+            display: flow-root;
         }
 
         .nav-item {
             float: left;
         }
 
-        .nav-item a, .dropbtn {
+        .nav-item a {
             display: inline-block;
             color: white;
             text-align: center;
-            padding: 14px 16px 0 16px;
+            padding: 14px 16px;
             text-decoration: none;
         }
 
-        .nav-item a:hover, .dropdown:hover .dropbtn {
-            background-color: #2c3e50;
+        /* SCALE AREA */
+        .scale-area {
+            text-align: center;
+            margin-top: 40px;
         }
 
-        .dropdown {
+        .blocks {
+            margin-bottom: 20px;
+        }
+
+        .block {
             display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            background: #3498db;
+            color: white;
+            border-radius: 6px;
+            cursor: grab;
+            user-select: none;
+            font-weight: bold;
+        }
+
+        .scale {
             position: relative;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-        .dropdown-content a:hover {background-color: #f1f1f1;}
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .links {
             display: flex;
-            flex-direction: row; 
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px auto;
+            width: 420px;
         }
 
-        .links a {
-            border-left: 2px solid black; 
-            border-right: 2px solid black; 
-            margin: 0; 
-            padding-left: 10px; 
-            padding-right: 10px;
+        .pan {
+            width: 150px;
+            min-height: 90px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 5px;
+            background: #eee;
         }
 
-        .links :is(:first-child, :last-child) {
-            border: none;
+        .pivot {
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
         }
 
-        .content-link {
-            text-decoration: none;
-            color: #000000; 
-            transition: all 0.2s ease;
-            border-bottom: 2px solid transparent; 
+        .pan.over {
+            background: #dff0ff;
         }
 
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
     </style>
 </head>
+
 <body>
     <ul class="ul2">
         <li class="nav-item"><a href="index.html">Home</a></li>
-        <li class="nav-item dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Data Analytics Projects</a>
-            <div class="dropdown-content">
-                <a href="inflation-calc.html">ELO Inflation Calculator</a>
-                <a href="gender-pay-gap.html">Analysis of PayGap.ie data</a>
-            </div>
-        </li>
-        <li class="nav-item"><a href="OnLearningMathematics.html">Mathematics: Concrete or Abstract?</a></li>
         <li class="nav-item"><a href="junior-cert.html">Junior Certificate Materials</a></li>
     </ul>
+
     <div class="container">
-        <h1>Algebra</h1>
+        <h1>Linear Equations</h1>
 
         <div class="section">
             <h2>What is a Linear Equation?</h2>
-                <p>A linear equation is an equation where the graph of the equation is a line, it's slope is constant.</p>
+            <p>
+                A linear equation is an equation where the graph of the equation is a line.
+                One way to think about equations is as a <strong>balance</strong>.
+            </p>
+        </div>
+
+        <div class="scale-area">
+            <h2>Balance the Equation</h2>
+            <p>Drag blocks onto each side of the scale.</p>
+
+            <div class="blocks">
+                <div class="block" draggable="true" data-weight="1">x</div>
+                <div class="block" draggable="true" data-weight="1">1</div>
+                <div class="block" draggable="true" data-weight="2">2</div>
+                <div class="block" draggable="true" data-weight="5">5</div>
+            </div>
+
+            <div class="scale">
+                <div class="pan left" data-side="left">Left side</div>
+                <div class="pivot"></div>
+                <div class="pan right" data-side="right">Right side</div>
+            </div>
+
+            <p id="result">Drop blocks to compare both sides.</p>
         </div>
     </div>
+
+    <script>
+        let weights = {
+            left: 0,
+            right: 0
+        };
+
+        const blocks = document.querySelectorAll('.block');
+        const pans = document.querySelectorAll('.pan');
+        const result = document.getElementById('result');
+
+        blocks.forEach(block => {
+            block.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('weight', block.dataset.weight);
+                e.dataTransfer.setData('label', block.textContent);
+            });
+        });
+
+        pans.forEach(pan => {
+            pan.addEventListener('dragover', e => {
+                e.preventDefault();
+                pan.classList.add('over');
+            });
+
+            pan.addEventListener('dragleave', () => {
+                pan.classList.remove('over');
+            });
+
+            pan.addEventListener('drop', e => {
+                e.preventDefault();
+                pan.classList.remove('over');
+
+                const weight = Number(e.dataTransfer.getData('weight'));
+                const label = e.dataTransfer.getData('label');
+
+                weights[pan.dataset.side] += weight;
+
+                const placed = document.createElement('div');
+                placed.textContent = label;
+                placed.className = 'block';
+                placed.style.background = '#95a5a6';
+                placed.style.cursor = 'default';
+
+                pan.appendChild(placed);
+
+                updateResult();
+            });
+        });
+
+        function updateResult() {
+            if (weights.left === weights.right) {
+                result.textContent = "✅ Balanced: both sides are equal.";
+            } else if (weights.left > weights.right) {
+                result.textContent = "⬅️ Left side is heavier.";
+            } else {
+                result.textContent = "➡️ Right side is heavier.";
+            }
+        }
+    </script>
 </body>
 </html>
