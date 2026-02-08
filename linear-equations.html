@@ -173,13 +173,26 @@ h1, h2 { text-align: center; }
 /* Red blocks on beam */
 .red-block {
     position: absolute;
-    width: 24px;
-    height: 24px;
+    bottom: 100%;
+    transform: translateY(-2px); /* small gap above beam */
+
+    min-width: 40px;
+    height: 28px;
+    padding: 2px 6px;
+
     background: #ff4c4c;
     border-radius: 4px;
-    bottom: 100%;        /* sit on top of beam */
-    margin-bottom: 2px;  /* small gap */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
 }
+
 .red-left { left: 20px; }
 .red-right { right: 20px; }
 
