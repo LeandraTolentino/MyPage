@@ -3,127 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Junior Certificate Materials – Scale with Beam Blocks</title>
+<title>Junior Certificate Materials – Balance Model</title>
 
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
 h1, h2 { text-align: center; }
 
 .section { margin-bottom: 30px; }
 .section h2 { border-bottom: 2px solid #333; padding-bottom: 5px; }
 
-/* Navbar */
-        .ul2 {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            padding-bottom: 10px;
-            background-color: #2c3e50;
-            width: 100%;
-            display: flow-root; 
-            position: relative; 
-        }
-
-        .nav-item {
-            float: left;
-        }
-
-        .nav-item a, .dropbtn {
-            display: inline-block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px 0 16px;
-            text-decoration: none;
-        }
-
-        .nav-item a:hover, .dropdown:hover .dropbtn {
-            background-color: #2c3e50;
-        }
-
-        .dropdown {
-            display: inline-block;
-            position: relative;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-        .dropdown-content a:hover {background-color: #f1f1f1;}
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .links {
-            display: flex;
-            flex-direction: row; 
-            justify-content: center;
-        }
-
-        .links a {
-            border-left: 2px solid black; 
-            border-right: 2px solid black; 
-            margin: 0; 
-            padding-left: 10px; 
-            padding-right: 10px;
-        }
-
-        .links :is(:first-child, :last-child) {
-            border: none;
-        }
-
-        .content-link {
-            text-decoration: none;
-            color: #000000; 
-            transition: all 0.2s ease;
-            border-bottom: 2px solid transparent; 
-        }
-
-/* Draggable pool */
-.blocks {
-    text-align: center;
-    margin-bottom: 25px;
+.ul2 {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 10px;
+    background-color: #2c3e50;
+    width: 100%;
+    display: flow-root;
+    position: relative;
 }
-.block {
+.nav-item { float: left; }
+.nav-item a, .dropbtn {
     display: inline-block;
-    padding: 10px 16px;
-    margin: 6px;
-    background: #3498db;
     color: white;
-    border-radius: 6px;
-    cursor: grab;
-    font-weight: bold;
-    user-select: none;
+    text-align: center;
+    padding: 14px 16px 0 16px;
+    text-decoration: none;
 }
+.nav-item a:hover, .dropdown:hover .dropbtn {
+    background-color: #2c3e50;
+}
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+.dropdown-content a:hover { background-color: #f1f1f1; }
+.dropdown:hover .dropdown-content { display: block; }
 
-/* Scale */
+/* ===== SCALE ===== */
 .scale-wrapper {
     display: flex;
     justify-content: center;
@@ -135,17 +80,6 @@ h1, h2 { text-align: center; }
     width: 520px;
     height: 300px;
 }
-
-.red-block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-/* Pivot and beam */
 .pivot {
     position: absolute;
     top: 130px;
@@ -170,33 +104,28 @@ h1, h2 { text-align: center; }
     z-index: 2;
 }
 
-/* Red blocks on beam */
+/* Red expression labels */
 .red-block {
     position: absolute;
     bottom: 100%;
-    transform: translateY(-2px); /* small gap above beam */
-
+    transform: translateY(-2px);
     min-width: 40px;
     height: 28px;
     padding: 2px 6px;
-
     background: #ff4c4c;
     border-radius: 4px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     color: white;
     font-size: 12px;
     font-weight: bold;
     white-space: nowrap;
 }
-
 .red-left { left: 20px; }
 .red-right { right: 20px; }
 
-/* Pans moved lower */
+/* Pans */
 .pan {
     position: absolute;
     width: 160px;
@@ -205,22 +134,17 @@ h1, h2 { text-align: center; }
     border: 2px solid #333;
     border-radius: 8px;
     top: 200px;
-    padding: 6px;
+    padding: 8px;
     text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
 }
 .pan.left { left: 0; }
 .pan.right { right: 0; }
-.pan.over { background: #dff0ff; }
 
-/* Blocks dropped into pans */
-.pan .block {
-    background: #95a5a6;
-    cursor: default;
-    margin: 3px;
+.expr-input {
+    width: 90%;
+    padding: 6px;
+    font-size: 16px;
+    text-align: center;
 }
 
 .caption {
@@ -233,120 +157,97 @@ h1, h2 { text-align: center; }
 
 <body>
 
-<!-- Navbar -->
-    <ul class="ul2">
-        <li class="nav-item"><a href="index.html">Home</a></li>
-        <li class="nav-item dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Data Analytics Projects</a>
-            <div class="dropdown-content">
-                <a href="inflation-calc.html">ELO Inflation Calculator</a>
-                <a href="gender-pay-gap.html">Analysis of PayGap.ie data</a>
-            </div>
-        </li>
-        <li class="nav-item"><a href="OnLearningMathematics.html">Mathematics: Concrete or Abstract?</a></li>
-        <li class="nav-item"><a href="junior-cert.html">Junior Certificate Materials</a></li>
-    </ul>
+<!-- ===== NAV BAR ===== -->
+<ul class="ul2">
+    <li class="nav-item"><a href="index.html">Home</a></li>
+    <li class="nav-item dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Data Analytics Projects</a>
+        <div class="dropdown-content">
+            <a href="inflation-calc.html">ELO Inflation Calculator</a>
+            <a href="gender-pay-gap.html">Analysis of PayGap.ie data</a>
+        </div>
+    </li>
+    <li class="nav-item"><a href="OnLearningMathematics.html">Mathematics: Concrete or Abstract?</a></li>
+    <li class="nav-item"><a href="junior-cert.html">Junior Certificate Materials</a></li>
+</ul>
 
 <div class="container">
     <h1>Linear Equations</h1>
 
     <div class="section">
-        <h2>What is a Linear Equation?</h2>
-        <p>A linear equation is an equation where the graph is a line with constant slope. It takes the form y = mx + c, where m is the slope and c is a constant.</p>
-        <p>Remember from primary school that two sides of an equation: the left side and right side must be equal.</p>
-        <p>Linear equations follow the same rule. However, remember that a variable can be any number! So x = 5 is okay.</p>
-        <p>However x = x + 5 is not okay, because if we subtract the x we get 0 = 5. This is nonsense!</p>
-    </div>
-
-    <div class="section">
         <h2>Balance Model</h2>
-        <p>One way to think about balancing the right and left side of an equation is to imagine them as weights on a scale. If we have 5 kilos on one side it will be heavier than 0 kilos on the other, the two sides are not equal.</p>
-        <p>Let us now put two blocks on the scale. We can pick their weight, and see how the scale balances.</p>
-        <p style="text-align:center;">Drag the blue squares into the two empty pans below. Each pan represents the weight of the red blocks on the weighing scale.</p>
+        <p style="text-align:center;">
+            Type an expression like <strong>x+3</strong> or <strong>2x−1</strong> into each pan.
+        </p>
 
-        <!-- Draggable pool -->
-        <div class="blocks">
-            <div class="block" draggable="true" data-type="x">x</div>
-            <div class="block" draggable="true" data-type="c" data-value="1">1</div>
-            <div class="block" draggable="true" data-type="c" data-value="2">2</div>
-            <div class="block" draggable="true" data-type="c" data-value="5">5</div>
-        </div>
-
-        <!-- Scale -->
         <div class="scale-wrapper">
             <div class="scale">
                 <div class="beam" id="beam">
-                    <!-- Red blocks on beam -->
                     <div class="red-block red-left" id="red-left">0</div>
                     <div class="red-block red-right" id="red-right">0</div>
                 </div>
                 <div class="pivot"></div>
 
-                <div class="pan left" data-side="left"></div>
-                <div class="pan right" data-side="right"></div>
+                <div class="pan left" data-side="left">
+                    <input class="expr-input" placeholder="e.g. x+3">
+                </div>
+                <div class="pan right" data-side="right">
+                    <input class="expr-input" placeholder="e.g. 2x+1">
+                </div>
             </div>
         </div>
 
         <div class="caption">
-            The equation is equal when the weighing scale is balanced.
+            The equation is balanced when the beam is level.
         </div>
     </div>
 </div>
 
 <script>
-let sides = { left: { x:0, c:0 }, right: { x:0, c:0 } };
+let sides = {
+    left: { x: 0, c: 0 },
+    right: { x: 0, c: 0 }
+};
 
-const blocks = document.querySelectorAll('.block');
-const pans = document.querySelectorAll('.pan');
-const beam = document.getElementById('beam');
-const redLeft = document.getElementById('red-left');
-const redRight = document.getElementById('red-right');
+const beam = document.getElementById("beam");
+const redLeft = document.getElementById("red-left");
+const redRight = document.getElementById("red-right");
 
-
-blocks.forEach(block => {
-    block.addEventListener('dragstart', e => {
-        e.dataTransfer.setData('type', block.dataset.type);
-        e.dataTransfer.setData('value', block.dataset.value || 0);
-        e.dataTransfer.setData('label', block.textContent);
-    });
-});
-
-pans.forEach(pan => {
-    pan.addEventListener('dragover', e => { e.preventDefault(); pan.classList.add('over'); });
-    pan.addEventListener('dragleave', () => pan.classList.remove('over'));
-    pan.addEventListener('drop', e => {
-        e.preventDefault();
-        pan.classList.remove('over');
-
-        const type = e.dataTransfer.getData('type');
-        const value = Number(e.dataTransfer.getData('value'));
-        const label = e.dataTransfer.getData('label');
-
-        if(type==="x") sides[pan.dataset.side].x +=1;
-        else sides[pan.dataset.side].c += value;
-
-        const placed = document.createElement('div');
-        placed.className = 'block';
-        placed.textContent = label;
-        pan.appendChild(placed);
-
+document.querySelectorAll(".expr-input").forEach(input => {
+    input.addEventListener("input", () => {
+        const side = input.parentElement.dataset.side;
+        sides[side] = parseExpression(input.value);
         updateScale();
     });
 });
 
+function parseExpression(expr) {
+    expr = expr.replace(/\s+/g, "");
+    let x = 0, c = 0;
+
+    const terms = expr.match(/[+-]?[^+-]+/g) || [];
+
+    terms.forEach(term => {
+        if (term.includes("x")) {
+            let coeff = term.replace("x", "");
+            if (coeff === "" || coeff === "+") coeff = 1;
+            if (coeff === "-") coeff = -1;
+            x += Number(coeff);
+        } else {
+            c += Number(term);
+        }
+    });
+
+    return { x, c };
+}
+
 function updateScale() {
-    // Update beam tilt (your existing logic)
     const dx = sides.left.x - sides.right.x;
     const dc = sides.right.c - sides.left.c;
-    let angle = 0;
 
-    if (dx === 0) {
-        angle = Math.max(-12, Math.min(12, dc * 3));
-    }
-
+    const angle = Math.max(-12, Math.min(12, dx * 4 + dc * 2));
     beam.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 
-    // Update red block labels
     redLeft.textContent = formatSide(sides.left);
     redRight.textContent = formatSide(sides.right);
 }
@@ -354,17 +255,18 @@ function updateScale() {
 function formatSide(side) {
     let parts = [];
 
-    if (side.x > 0) {
-        parts.push(side.x === 1 ? "x" : `${side.x}x`);
+    if (side.x !== 0) {
+        parts.push(side.x === 1 ? "x" :
+                   side.x === -1 ? "-x" :
+                   `${side.x}x`);
     }
 
-    if (side.c > 0) {
-        parts.push(side.c);
+    if (side.c !== 0) {
+        parts.push(side.c > 0 ? `+ ${side.c}` : `- ${Math.abs(side.c)}`);
     }
 
-    return parts.length ? parts.join(" + ") : "0";
+    return parts.length ? parts.join(" ") : "0";
 }
-
 </script>
 
 </body>
