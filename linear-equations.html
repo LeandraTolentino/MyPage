@@ -255,12 +255,19 @@ function updateScale() {
     const dx = sides.left.x - sides.right.x;
     const dc = sides.right.c - sides.left.c;
 
-    const angle = Math.max(-12, Math.min(12, dx * 4 + dc * 2));
+    let angle = 0;
+
+    // ONLY tilt when x terms cancel
+    if (dx === 0) {
+        angle = Math.max(-12, Math.min(12, dc * 3));
+    }
+
     beam.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 
     redLeft.textContent = formatSide(sides.left);
     redRight.textContent = formatSide(sides.right);
 }
+
 
 function formatSide(side) {
     let parts = [];
